@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニュース確認</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    <!-- header ここから -->
+
+    <!-- header ここまで -->
+    <!-- main ここから -->
+        <div class="row my-2">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="cntimage">
+                    <div style="width:100%;position:relative;">
+                        <time datetime="2021-11-05T10:10:00+09:00" class="yeartime">{年月日}</time>
+                        <span class="yeartime p-category">
+                            <a href="/news/C9/">{ジャンル}</a>
+                        </span>
+                    </div>
+                    <style>
+                        .p-category {
+                            position: absolute;
+                            right: 2px;
+                        }
+                    </style>
+                    <br>
+                    <h3 class="p-3 mb-2 bg-info text-white">{タイトル}</h1>
+                    <p>
+                        <img src="../img/apolo.jpeg" class="img-fluid rounded mx-auto d-block" alt="">
+                    </p>
+                    <p>
+                        {本文}
+                    </p>
+                    詳細は
+                    <a href="https://gigazine.net/news/20211105-apolo-separating-tool/">こちら</a>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <!-- twitter 埋め込み開始-->
+                    {twitter}
+                    <!-- twitter 埋め込み終了 -->
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    <!-- main ここまで -->
+    <!-- footer ここから -->
+
+    <!-- footer ここまで -->
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
