@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニュース登録</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 alert alert-info">入力に誤りがあります</div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <!-- 入力フォーム ここから -->
+        <div class="row my-2">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <form action="#" method="post">
+                    <legend>ニュース（登録）</legend>
+                    <!-- タイトル -->
+                    <div class="row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">タイトル</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title" name="title" required>
+                            <div class="invalid-feedback">
+                                Please
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 写真 -->
+                    <div class="row mb-3">
+                        <label for="picture" class="col-sm-2 col-form-label">写真</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="picture" name="picture">
+                        </div>
+                     </div>
+                     <!-- 本文 -->
+                     <div class="row mb-3">
+                        <label for="text" class="col-sm-2 col-form-label">本文</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="text" id="text" cols="30" rows="5" required></textarea>
+                            <div class="invalid-feedback">
+                                Please
+                            </div>
+                        </div>
+                     </div>
+                     <!-- ニュース元URL -->
+                     <div class="row mb-3">
+                        <label for="url" class="col-sm-2 col-form-label">ニュース元URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="url" name="url" required>
+                            <div class="invalid-feedback">
+                                Please
+                            </div>
+                        </div>
+                    </div>
+                    <!-- twitter -->
+                    <div class="row mb-3">
+                        <label for="twitter" class="col-sm-2 col-form-label">twitter</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="twitter" name="twitter">
+                        </div>
+                    </div>
+                    <!-- jenre -->
+                    <div class="row mb-5">
+                        <label for="jenre" class="col-sm-2 col-form-label">ジャンル</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="jenre" required>
+                                <option selected>選択してください</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please
+                            </div>
+                        </div>
+                    </div>
+                     <input type="submit" class="btn btn-primary" value="確認">
+                     <input type="submit" class="btn btn-primary" value="TOPへ"
+                        onclick="location.href='#'">
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <!-- 入力フォーム ここまで -->
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
