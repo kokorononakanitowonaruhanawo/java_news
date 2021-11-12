@@ -9,10 +9,53 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
+    
     <!-- header ここから -->
-
+    <div class="container">
+        <div class="my-2">
+            <!-- navbar ここから -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">MotoZine</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-primary" type="submit">🔍</button>
+                        </form>
+                        <li class="nav-item dropdown d-flex">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                管理者
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item">ニュース関連</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">ニュース登録</a></li>
+                                <li><a class="dropdown-item" href="#">ニュース編集</a></li>
+                                <li><a class="dropdown-item" href="#">ニュース削除</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item">管理者関連</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">管理者登録</a></li>
+                                <li><a class="dropdown-item" href="#">管理者編集</a></li>
+                                <li><a class="dropdown-item" href="#">管理者削除</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+            <!-- navbar ここまで -->
+        </div>
+    </div>
     <!-- header ここまで -->
+
+    <div class="container">
     <!-- main ここから -->
         <div class="row my-2">
             <div class="col-2"></div>
@@ -31,15 +74,19 @@
                         }
                     </style>
                     <br>
+                    <!-- タイトル -->
                     <h3 class="p-3 mb-2 bg-info text-white">あのお菓子の「アポロ」を分解するための工具が開発される</h1>
+                    <!-- 写真 -->
                     <p>
-                        <img src="../img/apolo.jpeg" class="img-fluid rounded mx-auto d-block" alt="">
+                        <img src="../../img/apolo.jpeg" class="img-fluid rounded mx-auto d-block" alt="">
                     </p>
+                    <!-- 本文 -->
                     <p>
                         製菓メーカーの明治が1969年から製造販売している「アポロ」は、ミルクチョコレートとイチゴ味チョコレートの2層構造で、発売当時に人類初の月面着陸に成功した
                         の司令船をモチーフとした円すい形の側面にギザギザがついているのが特徴。そんなアポロの2層を分割するための工具を、さまざまな料理動画や工作動画を制作する
                         ロウアイキューさんが開発しました。
                     </p>
+                    <!-- ニュース元URL -->
                     詳細は
                     <a href="https://gigazine.net/news/20211105-apolo-separating-tool/">こちら</a>
                 </div>
