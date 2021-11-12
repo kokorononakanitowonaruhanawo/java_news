@@ -4,11 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>登録</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
+    <!-- header ここから -->
+    <div class="container">
+        <div class="my-2">
+            <!-- navbar ここから -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">MotoZine</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-primary" type="submit">🔍</button>
+                        </form>
+                        <li class="nav-item dropdown d-flex">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                管理者
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item">ニュース関連</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">ニュース登録</a></li>
+                                <li><a class="dropdown-item" href="#">ニュース編集</a></li>
+                                <li><a class="dropdown-item" href="#">ニュース削除</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item">管理者関連</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">管理者登録</a></li>
+                                <li><a class="dropdown-item" href="#">管理者編集</a></li>
+                                <li><a class="dropdown-item" href="#">管理者削除</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+            <!-- navbar ここまで -->
+        </div>
+    </div>
+    <!-- header ここまで -->
+
     <div class="container">
         <div class="row my-2">
             <div class="col-sm-3"></div>
@@ -20,32 +65,45 @@
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <form action="#" method="post">
+                <form method="post">
                     <legend>管理者（登録）</legend>
+                    <!-- 氏名 -->
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">氏名</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                     </div>
+                    <!-- Email -->
                     <div class="row mb-3">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" id="email" name="email">
                         </div>
                     </div>
+                    <!-- パスワード -->
                     <div class="row mb-3">
                         <label for="Password1" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="Password1" name="Password1">
+                            <div id="passwordHelpBlock" class="form-text">
+                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                            </div>
                         </div>
-                    <div class="row mb-3"></div>
+                    </div>
+                    <!-- パスワード（確認） -->
+                    <div class="row mb-3">
                         <label for="Password2" class="col-sm-2 col-form-label">Password（確認）</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="Password2" name="Password2">
+                            <div id="passwordHelpBlock" class="form-text">
+                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                            </div>
                         </div>
                     </div>
-                     <button type="submit" class="btn btn-primary">登録</button>
+                    <!-- ボタン -->
+                    <button type="submit" class="btn btn-primary" formaction="'プロジェクト名/サーブレット名'">登録</button>
+                    <button type="submit" class="btn btn-primary" formaction="'プロジェクト名/サーブレット名'">一覧へ</button>
                 </form>
             </div>
             <div class="col-sm-3"></div>
