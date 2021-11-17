@@ -14,8 +14,10 @@ import settings.DBSettings;
 public class AdminDAO {
 
 	/**
+	 * ****************************************************
 	 * 管理者を全件取得
 	 * @return 検索結果（管理者モデルのリスト）
+	 * ****************************************************
 	 */
 	public List<AdminModel> findAll() {
 		List<AdminModel> list = new ArrayList<AdminModel>();
@@ -47,9 +49,11 @@ public class AdminDAO {
 	
 	
 	/**
+	 * ****************************************************
 	 * 指定の管理者を取得
 	 * @param id 管理者ID
 	 * @return 検索結果（AdminModel）
+	 * ****************************************************
 	 */
 	public AdminModel findOne(int id) {
 		AdminModel admin = new AdminModel();
@@ -83,9 +87,11 @@ public class AdminDAO {
 	
 	
 	/**
+	 * ****************************************************
 	 * データを1件追加
 	 * @param AdminModel
 	 * @return 実行結果 1:成功、0:失敗、その他:エラーコード
+	 * ****************************************************
 	 */
 	public int create(AdminModel admin) {
 		try {
