@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import settings.DBSettings;
+import util.settings.DBSettings;
 
 public class DBConnection {
 
@@ -12,7 +12,7 @@ public class DBConnection {
 	private Connection connection = null;
 	
 	public DBConnection() throws ClassNotFoundException, SQLException {
-		Class.forName(DBSettings.DRIVER_NAME);
+		Class.forName(util.settings.DBSettings.DRIVER_NAME);
 		
 		this.connection = DriverManager.getConnection(DBSettings.JDBC_URL, DBSettings.DB_USER, DBSettings.DB_PASS);
 			
