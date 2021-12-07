@@ -9,7 +9,7 @@ import java.util.List;
 
 import database.DBConnection;
 import model.GenreModel;
-import settings.DBSettings;
+import util.settings.DBSettings;
 
 public class GenreDAO {
 
@@ -97,9 +97,9 @@ public class GenreDAO {
 			
 			// SQL文
 			String sql = "INSERT INTO genre ( "
-							+ "genre, "
-							+ "registration_date "
-							+ " ) VALUES ( ?, ? )";
+							+ "genre = ?, "
+							+ "registration_date = ? "
+							+ " )";
 				
 			// SQLを実行する準備
 			PreparedStatement stmt = connection.prepareStatement(sql);
