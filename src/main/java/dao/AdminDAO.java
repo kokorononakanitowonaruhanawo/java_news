@@ -9,7 +9,7 @@ import java.util.List;
 
 import database.DBConnection;
 import model.AdminModel;
-import settings.DBSettings;
+import util.settings.DBSettings;
 
 public class AdminDAO {
 
@@ -83,6 +83,45 @@ public class AdminDAO {
 		return admin;
 	}
 	
+	
+	
+	
+	/**
+	 * ****************************************************
+	 * 指定の管理者を取得
+	 * @param email
+	 * @param password
+	 * @return 検索結果（AdminModel）
+	 * ****************************************************
+	 */
+	public AdminModel findOne(String email, String password) {
+		AdminModel admin = new AdminModel();
+		try {
+			// DBに接続
+			DBConnection db = new DBConnection();
+			Connection connection = db.getConnection();
+			// SQL文を作成
+			String sql = "SELECT * FROM admin WHERE email=? AND pass=?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			// パラメーターを設定
+			stmt.setString(1, email);
+			stmt.setString(2, password);
+			// SQL文を実行
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				admin.setId(rs.getInt("id"));
+				admin.setEmail(rs.getString("email"));
+				admin.setName(rs.getString("name"));
+				admin.setPassword(rs.getString("pass"));
+			} else {
+				admin = null;
+			}
+		} catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return admin;
+	}
 	
 	
 	
