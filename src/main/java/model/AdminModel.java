@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * Admin Model
+ */
+
 public class AdminModel implements Serializable {
 
 	private int id;

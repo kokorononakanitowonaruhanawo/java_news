@@ -5,6 +5,9 @@ import java.util.List;
 import dao.GenreDAO;
 import model.GenreModel;
 
+/**
+ * Genre logic
+ */
 public class GenreLogic {
 	/**
 	 * ジャンルを1件追加

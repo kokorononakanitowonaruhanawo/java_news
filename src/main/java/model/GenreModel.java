@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * Genre Mode
+ */
 public class GenreModel implements Serializable {
 
 	private int id;

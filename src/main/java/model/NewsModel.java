@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * News Model
+ */
+
 public class NewsModel implements Serializable{
 	private int id;
 	private int genre_id;
