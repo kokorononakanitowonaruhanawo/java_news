@@ -5,6 +5,9 @@ import java.util.List;
 import dao.AdminDAO;
 import model.AdminModel;
 
+/**
+ * Admin Logic
+ */
 public class AdminLogic {
 	/**
 	 * 管理者を1件追加
@@ -45,6 +48,19 @@ public class AdminLogic {
 		AdminDAO dao = new AdminDAO();
 		return dao.findOne(email, password);
 	}
+	
+	
+	/**
+	 * 指定E-mailアドレスとパスワードの管理者を取得
+	 * @param email E-mailアドレス
+	 * @return 検索結果（管理者モデル）
+	 */
+	public AdminModel find(String email) {
+		AdminDAO dao = new AdminDAO();
+		return dao.findOne(email);
+	}
+	
+	
 
 	/**
 	 * 指定管理者IDの管理者を1件更新
