@@ -20,10 +20,8 @@
 	    }
 	</style>
                     
-	<div class="container">
-		<%-- navbar --%>
-		<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" />
-	</div>
+	<%-- navbar --%>
+	<%@ include file="/WEB-INF/jsp/include/navbar.jsp" %>
 	
 	 <div class="container">
     <!-- main ここから -->
@@ -32,31 +30,31 @@
             <div class="col-8">
                 <div class="cntimage">
                     <div style="width:100%;position:relative;">
-                        <a href="#" class="yeartime">${requestScope.news.getRegistrationDate()}</a>
-                        <a href="/news/C9/" class="p-category">${requestScope.news.getGenreModel().getGenre()}</a>
+                        <a href="#" class="yeartime">${sessionScope.news.getRegistrationDate()}</a>
+                        <a href="/news/C9/" class="p-category">${sessionScope.news.getGenreModel().getGenre()}</a>
                     </div>
 
                     <br>
                     <!-- タイトル -->
-                    <h3 class="p-3 mb-2 bg-info text-white">${requestScope.news.getTitle() }</h3>
+                    <h3 class="p-3 mb-2 bg-info text-white">${sessionScope.news.getTitle() }</h3>
                     <!-- 写真 -->
                     <p>
-                        <img src="${requestScope.news.getPicture() }" class="img-fluid rounded mx-auto d-block" alt="">
+                        <img src="${sessionScope.news.getPicture() }" class="img-fluid rounded mx-auto d-block" alt="">
                     </p>
                     <!-- 本文 -->
                     <p>
-                        ${requestScope.news.getArticle() }
+                        ${sessionScope.news.getArticle() }
                     </p>
                     <!-- ニュース元URL -->
                     詳細は
-                    <a href="${requestScope.news.getURL() }">こちら</a>
+                    <a href="${sessionScope.news.getURL() }">こちら</a>
                 </div>
                 <br>
                 <br>
                 <div>
                	 	<!-- twitter 埋め込み開始-->
-                	<c:if test="${requestScope.news.getTwitter() != null }">
-                		${requestScope.news.getTwitter()}
+                	<c:if test="${sessionScope.news.getTwitter() != null }">
+                		${sessionScope.news.getTwitter()}
                 	</c:if>
                     <!-- twitter 埋め込み終了 -->
                 </div>
@@ -68,7 +66,5 @@
 
     <!-- footer ここまで -->
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

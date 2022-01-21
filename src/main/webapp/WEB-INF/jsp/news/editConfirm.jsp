@@ -13,7 +13,7 @@ String path = "/java_news/img/" + news.getPicture();
 <html>
 <%-- headを読み込む --%>
 <c:import url="/WEB-INF/jsp/include/head.jsp">
-	<c:param name="title" value="登録" />
+	<c:param name="title" value="修正" />
 </c:import>
 <body>
 	<div class="container">
@@ -26,9 +26,9 @@ String path = "/java_news/img/" + news.getPicture();
         <div class="row my-2">
             <div class="col-2"></div>
             <div class="col-8">
-	            <form method="get" action="/java_news/NewsRegisterDoneServlet">
-					<legend>ニュース（登録確認）</legend>
-					<p>下記の内容で登録しますか？</p>
+	            <form method="get" action="/java_news/NewsEditDoneServlet">
+					<legend>ニュース（編集確認）</legend>
+					<p>下記の内容で編集しますか？</p>
 					<br>
 					<br>
 	                <div class="cntimage">
@@ -70,16 +70,15 @@ String path = "/java_news/img/" + news.getPicture();
 	                    </c:if>
 	                    <!-- twitter 埋め込み終了 -->
 	                </div>
-	                <input type="submit" class="btn btn-primary" value="登録">
-	                <a class="btn btn-primary" href='NewsRegisterServlet' role="button">修正</a>
-	                <a class="btn btn-primary" href='IndexServlet' role="button">TOPへ</a>
+	                <input type="submit" class="btn btn-primary" value="編集">
+	                <a class="btn btn-primary" href='/java_news/NewsEditServlet' role="button">修正</a>
+	                <a class="btn btn-primary" href='/java_news/IndexServlet' role="button">TOPへ</a>
 				</form>
             </div>
             <div class="col-2"></div>
         </div>
     <!-- main ここまで -->
     <!-- footer ここから -->
-		
 			
     <!-- footer ここまで -->
 </div>

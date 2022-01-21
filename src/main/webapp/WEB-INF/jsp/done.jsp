@@ -20,8 +20,8 @@
                 <h3>${requestScope.legend}</h3>
                 <p>${requestScope.message}</p>
                 <div class="row">
-                    <form action="/IndexServlet" method="get">
-                        <button type="button" class="btn btn-primary">一覧へ</button>
+                    <form action="/java_news/IndexServlet" method="get">
+                        <button type="submit" class="btn btn-primary">一覧へ</button>
                     </form>
                 </div>
             </div>

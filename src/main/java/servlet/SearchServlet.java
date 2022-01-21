@@ -33,25 +33,30 @@ public class SearchServlet extends HttpServlet {
      */
     public SearchServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 全てのジャンルを取得
-		GenreLogic logic = new GenreLogic();
-		List<GenreModel> genreList = new ArrayList<>();
-		genreList = logic.find();
+		if(request.getParameter("search") != null) {
+			// 全てのジャンルを取得
+			GenreLogic logic = new GenreLogic();
+			List<GenreModel> genreList = new ArrayList<>();
+			genreList = logic.find();
+			
+			// SessionScopeに保存
+			HttpSession session = request.getSession();
+			session.setAttribute("genreList", genreList);
+			
+			// forward
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		doPost(request, response);
+		return;
 		
-		// SessionScopeに保存
-		HttpSession session = request.getSession();
-		session.setAttribute("genreList", genreList);
-		
-		// forward
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -61,22 +66,27 @@ public class SearchServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		
 		// パラメーターを取得
+		// keyword
 		String keyword = request.getParameter("keyword");
+		// ジャンル
 		int genreID = 0;
 		try {
 			genreID = Integer.parseInt(request.getParameter("genre"));
 		} catch (NumberFormatException e) {
 			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
-		
+		// 登録日
 		String strDate = request.getParameter("date");
 		Date date = null;
 		if(strDate != null && !strDate.isEmpty()) {
 			date = java.sql.Date.valueOf(strDate);
 		}
-		
+		// AND検索かOR検索か
 		String search = request.getParameter("search");
-		if((keyword == null | keyword.isEmpty()) && genreID == 0 && date == null) {
+		
+		if(search == null || search.isEmpty()) {}
+		else if((keyword == null | keyword.isEmpty()) && genreID == 0 && date == null) {
 			// エラーメッセージ
 			request.setAttribute("error", MSSettings.MSG_NO_INPUT);
 			// forward
@@ -95,56 +105,13 @@ public class SearchServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
 		// 検索
 		NewsLogic logic = new NewsLogic();
 		List<NewsModel> searchList = new ArrayList<NewsModel>();
 		int limit = OthersSettings.DISPLAY_NUMBER;
-		// keywordが設定されている時
-		if(keyword != null && !keyword.isEmpty()) {
-			// Genreが設定されている時
-			if(genreID != 0) {
-				// 日付か設定されている時
-				if(date != null) {
-					if(search.equals("or"))	{searchList = logic.findOR(keyword, genreID, date, limit, offset);}
-					else					{searchList = logic.findAND(keyword, genreID, date, limit, offset);}
-				}
-				// 日付か設定されていない時
-				else {
-					if(search.equals("or"))	{searchList = logic.findOR(keyword, genreID, limit, offset);}
-					else					{searchList = logic.findAND(keyword, genreID, limit, offset);}
-				}
-			} 
-			// Genreが設定されていない時
-			else {
-				// 日付か設定されている時
-				if(date != null) {
-					if(search.equals("or"))	{searchList = logic.findOR(keyword, date, limit, offset);}
-					else					{searchList = logic.findAND(keyword, date, limit, offset);}
-				}
-				// 日付か設定されていない時
-				else {searchList = logic.find(keyword, limit, offset);}
-			}
-		} 
-		// keywordが設定されていない時
-		else {
-			// Genreが設定されている時
-			if(genreID != 0) {
-				// 日付か設定されている時
-				if(date != null) {
-					if(search.equals("or"))	{searchList = logic.findOR(genreID, date, limit, offset);}
-					else					{searchList = logic.findAND(genreID, date, limit, offset);}
-				}
-				// 日付か設定されていない時
-				else	{searchList = logic.find(genreID, limit, offset);}
-			}
-			// Genreが設定されていない時
-			else {
-				// 日付か設定されている時
-				if(date != null)	{searchList = logic.find(date, limit, offset);}
-			}
-		}
+		searchList = logic.find(genreID, date, keyword, search, limit, offset);
 		
+		// 検索がHITしなかった場合
 		if(searchList == null) {
 			// フォワード
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/search.jsp");
@@ -153,7 +120,7 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 		// 全部で何ページあるか
-		int block = logic.calculateNumOfPage();
+		int block = logic.count(genreID, date, keyword, search) / OthersSettings.DISPLAY_NUMBER;
 		
 		int isEnd = 0;
 		if(block == offset + 1)	isEnd =1;
@@ -171,5 +138,5 @@ public class SearchServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-
+	
 }

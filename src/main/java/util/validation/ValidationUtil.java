@@ -7,6 +7,9 @@ import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 import org.apache.commons.validator.routines.UrlValidator;
 
+import logic.AdminLogic;
+import model.AdminModel;
+
 public class ValidationUtil {
 
 	/**
@@ -49,7 +52,7 @@ public class ValidationUtil {
 	 * @return true:正しい、false:正しくない
 	 */
 	public static final boolean isPassword(String password) {
-		RegexValidator regex = new RegexValidator("^[0-9a-zA-Z]{8,20}$");
+		RegexValidator regex = new RegexValidator("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}$", false);
 		return regex.isValid(password);
 	}
 
@@ -93,4 +96,28 @@ public class ValidationUtil {
 		FloatValidator object = FloatValidator.getInstance();
 		return object.isValid(value);
 	}
+	
+	/**
+	 * 文字列が一致するかどうか調べる
+	 * @param value 文字列
+	 * @param value 文字列
+	 * @return true:正しい、false:正しくない
+	 */
+	public static final boolean isSame(String str1, String str2) {
+		return str1.equals(str2);
+                                                                          	}
+	                            
+	/**
+	 * Emailが登録されているかどうか調べる
+	 * @param email
+	 * @return true:正しい、false:正しくない
+	 */
+	public static final boolean isRegistered(String email) {
+		AdminModel model = new AdminModel();
+		AdminLogic logic = new AdminLogic();
+		model = logic.find(email);
+		if(model == null) return false;
+		return true;
+	}
+
 }

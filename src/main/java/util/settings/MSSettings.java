@@ -23,6 +23,9 @@ public class MSSettings {
 	/** パスワードは、半角英字大文字小文字と半角英数字を取り混ぜて、8文字以上20文字以内で入力してください。 */
 	public static final String MSG_PASSWORD_FAILURE = "パスワードは、半角英字大文字小文字と半角英数字を取り混ぜて、8文字以上20文字以内で入力してください。";
 
+	/** 入力が一致しません */
+	public static final String MSG_NOT_AGREE = "入力が一致しません";
+	
 	/** %sは%d文字以上で入力してください。*/
 	public static final String MSG_LENGTH_SHORT = "%sは%d文字以上で入力してください。";
 
@@ -38,12 +41,24 @@ public class MSSettings {
 	/** %sが正しくありません。 */
 	public static final String MSG_INVALID_VALUE = "%sが正しくありません。";
 	
-	/** 途中でエラーが生じました */
-	public static final String MSG_ERROR_DERIVERY = "途中でエラーが生じました";
-	
 	/** 登録完了 */
 	public static final String MSG_TITLE_RESISTER = "登録完了";
 	
 	/** 登録完了しました */
 	public static final String MSG_RESISTER_COMPLETE = "登録完了しました";
+	
+	/** 編集完了 */
+	public static final String MSG_TITLE_EDIT = "編集完了";
+	
+	/** 編集完了しました */
+	public static final String MSG_EDIT_COMPLETE = "編集完了しました";
+	
+	/** 削除完了 */
+	public static final String MSG_TITLE_DELETE = "削除完了";
+	
+	/** 削除完了しました */
+	public static final String MSG_DELETE_COMPLETE = "削除完了しました";
+	
+	/** 何も入力されていません */
+	public static final String MSG_NO_INPUT = "何も入力されていません";
 }

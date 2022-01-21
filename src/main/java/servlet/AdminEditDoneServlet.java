@@ -10,22 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import logic.NewsLogic;
-import model.NewsModel;
+import logic.AdminLogic;
+import model.AdminModel;
 import util.settings.DBSettings;
 import util.settings.MSSettings;
 
 /**
- * Servlet implementation class NewsRegisterDoneServlet
+ * Servlet implementation class AdminEditDoneServlet
  */
-@WebServlet("/NewsRegisterDoneServlet")
-public class NewsRegisterDoneServlet extends HttpServlet {
+@WebServlet("/AdminEditDoneServlet")
+public class AdminEditDoneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewsRegisterDoneServlet() {
+    public AdminEditDoneServlet() {
         super();
     }
 
@@ -35,41 +35,42 @@ public class NewsRegisterDoneServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
 		
-		// session情報を取得
+		// セッションパラメーターを取得
+		AdminModel model = new AdminModel();
 		HttpSession session = request.getSession();
-		NewsModel news = (NewsModel) session.getAttribute("news");
-		
-		// 取得できていない場合
-		if(news == null) {
+		model = (AdminModel) session.getAttribute("editAdmin");
+		if(model == null) {
 			// エラーメッセージ
 			request.setAttribute("error", MSSettings.MSG_ERROR_OCCURRED);
 			// forward
-			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/admin/edit.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
-		news.setIsDeleted(0);
-		// DBに登録
-		NewsLogic logic = new NewsLogic();
-		int result = logic.create(news);
 		
-		// 登録処理に成功
+		// DBを更新
+		AdminLogic logic = new AdminLogic();
+		int result = logic.update(model);
 		if(result == DBSettings.DB_EXECUTION_SUCCESS) {
 			// リクエストスコープを設定
-			request.setAttribute("title", MSSettings.MSG_TITLE_RESISTER);
-			request.setAttribute("legend", MSSettings.MSG_TITLE_RESISTER);
-			request.setAttribute("message", MSSettings.MSG_RESISTER_COMPLETE);
+			request.setAttribute("title", MSSettings.MSG_TITLE_EDIT);
+			request.setAttribute("legend", MSSettings.MSG_TITLE_EDIT);
+			request.setAttribute("message", MSSettings.MSG_EDIT_COMPLETE);
 			// sessionを削除
-			session.removeAttribute("news");
+			session.removeAttribute("editAdmin");
+			session.removeAttribute("admin");	// ログインをやり直す
 			// forward
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/done.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 		// 登録処理に失敗
 		else {
 			request.setAttribute("error", MSSettings.MSG_ERROR_OCCURRED);
 			// forward
-			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/edit.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

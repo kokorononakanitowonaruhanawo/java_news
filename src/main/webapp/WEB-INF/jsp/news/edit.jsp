@@ -20,16 +20,16 @@
         <div class="row my-2">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <form action="./NewsRegisterServlet" method="post" enctype=”multipart/form-data”>
-                    <legend>ニュース（登録）</legend>
+                <form action="/java_news/NewsEditServlet" method="post" enctype=”multipart/form-data”>
+                    <legend>ニュース（編集）</legend>
                     <!-- タイトル -->
                     <div class="row mb-3">
                         <label for="title" class="col-sm-2 col-form-label">タイトル</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" name="title" required 
-                            	<c:if test="${sessionScope.news.getTitle() != null }">
+                            <input type="text"
+                            		class="form-control" 
+                            		id="title" name="title" required 
                             		value="${sessionScope.news.getTitle()}"
-                            	</c:if>
                             >
                             <div class="form-text">必須事項（100文字以内）</div>
                         </div>
@@ -38,10 +38,11 @@
                     <div class="row mb-3">
                         <label for="picture" class="col-sm-2 col-form-label">写真</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png"
-                            	<c:if test="${sessionScope.news.getPicture() != null}">
+                            <input type="file"
+                            		class="form-control"
+                            		id="picture" name="picture"
+                            		accept=".jpg, .jpeg, .png"
                             		value="${sessionScope.news.getPicture() }"
-                            	</c:if>
                             >
                         </div>
                      </div>
@@ -49,7 +50,9 @@
                      <div class="row mb-3">
                         <label for="article" class="col-sm-2 col-form-label">本文</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="article" id="article" cols="30" rows="5" required><c:if test="${sessionScope.news.getArticle() != null }">${sessionScope.news.getArticle() }</c:if></textarea>
+                            <textarea class="form-control" name="article" id="article"
+                            			cols="30" rows="5" required>${sessionScope.news.getArticle()}
+                            </textarea>
                             <div class="form-text">必須事項（5,000文字以内）</div>
                         </div>
                      </div>
@@ -57,10 +60,10 @@
                      <div class="row mb-3">
                         <label for="url" class="col-sm-2 col-form-label">ニュース元URL</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="url" name="url" required
-                            	<c:if test="${sessionScope.news.getURL() != null }">
+                            <input type="text"
+                            		class="form-control"
+                            		id="url" name="url" required
                             		value="${sessionScope.news.getURL() }"
-                            	</c:if>
                             >
                             <div class="form-text">必須事項（2,000文字以内）</div>
                         </div>
@@ -77,27 +80,17 @@
                         <label for="jenre" class="col-sm-2 col-form-label">ジャンル</label>
                         <div class="col-sm-10">
                             <select name="genre" class="form-select" aria-label="jenre" required>
-                            	<c:choose>
-                            		<c:when test="${sessionScope.news.getGenreId() != null}">
-                            			<option>選択してください</option>
-                                		<c:forEach var="genre" items="${sessionScope.genreList}">
-                                			<c:choose>
-                                				<c:when test="${genre.getId() == sessionScope.news.getGenreId()}">
-                                					<option selected value="${genre.getId()}">${genre.getGenre()}</option>
-                                				</c:when>
-                                				<c:otherwise>
-                                					<option value="${genre.getId()}">${genre.getGenre()}</option>
-                                				</c:otherwise>
-                                			</c:choose>
-                                		</c:forEach>
-                            		</c:when>
-                            		<c:otherwise>
-                            			<option selected>選択してください</option>
-                            			<c:forEach var="genre" items="${sessionScope.genreList}">
-                            				<option value="${genre.getId()}">${genre.getGenre()}</option>
-                            			</c:forEach>
-                            		</c:otherwise>
-                            	</c:choose>
+                       			<option>選択してください</option>
+                           		<c:forEach var="genre" items="${sessionScope.genreList}">
+                           			<c:choose>
+                           				<c:when test="${genre.getId() == sessionScope.news.getGenreId()}">
+                           					<option selected value="${genre.getId()}">${genre.getGenre()}</option>
+                           				</c:when>
+                           				<c:otherwise>
+                           					<option value="${genre.getId()}">${genre.getGenre()}</option>
+                           				</c:otherwise>
+                           			</c:choose>
+                           		</c:forEach>
                             </select>
                             <div class="form-text">必須事項</div>
                         </div>

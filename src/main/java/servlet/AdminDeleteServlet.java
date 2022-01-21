@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import logic.NewsLogic;
-import model.NewsModel;
+import model.AdminModel;
 
 /**
- * Servlet implementation class NewsServlet
+ * Servlet implementation class AdminDeleteServlet
  */
-@WebServlet("/NewsServlet")
-public class NewsServlet extends HttpServlet {
+@WebServlet("/AdminDeleteServlet")
+public class AdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewsServlet() {
+    public AdminDeleteServlet() {
         super();
     }
 
@@ -31,29 +30,18 @@ public class NewsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// パラメーターを取得
-		int newsId = 0;
-		try {
-			newsId = Integer.parseInt((String) request.getParameter("id"));
-		} catch (Exception e) {
-			response.sendRedirect("/java_news/IndexServlet");
-		}
-
-		// 取得したIDに基づいてnews情報を取得
-		NewsModel news = new NewsModel();
-		NewsLogic logic = new NewsLogic();
-		news = logic.findOne(newsId);
-		if(news == null) {
-			response.sendRedirect("/java_news/IndexServlet");
-		}
+		RequestDispatcher dispatcher = null;
 		
-		// スコープに保存
+		// ログインできているか
+		AdminModel model = new AdminModel();
 		HttpSession session = request.getSession();
-		session.removeAttribute("news");
-		session.setAttribute("news", news);
-		
+		model = (AdminModel) session.getAttribute("admin");
+		if(model == null) {
+			response.sendRedirect("/java_news/LoginServlet");
+			return;
+		}
 		// forward
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news.jsp");
+		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/admin/deleteConfirm.jsp");
 		dispatcher.forward(request, response);
 	}
 

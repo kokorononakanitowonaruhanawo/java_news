@@ -14,19 +14,14 @@
 	
 	<%-- main --%>
     <div class="container">
-	    <c:if test="${requestScope.error != null}">
-	    	<div class="row my-2">
-	            <div class="col-sm-3"></div>
-	            <div class="col-sm-6 alert alert-info">${requestScope.error}</div>
-	            <div class="col-sm-3"></div>
-	        </div>
-	    </c:if>
+    	<%-- error --%>
+	    <%@ include file="/WEB-INF/jsp/include/error.jsp" %>
 
         <!-- 入力フォーム ここから -->
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <form method="post">
+                <form method="post" action="/java_news/LoginServlet">
                     <legend>ログイン</legend>
                     <!-- Email -->
                     <div class="row mb-3">
@@ -43,8 +38,8 @@
                         </div>
                      </div>
                      <!-- ボタン -->
-                     <button type="submit" class="btn btn-primary" formaction="/LoginServlet">ログイン</button>
-                     <button type="submit" class="btn btn-primary" formaction="/IndexServlet">一覧へ</button>
+                     <button type="submit" class="btn btn-primary">ログイン</button>
+                     <a class="btn btn-primary" href='IndexServlet' role="button">TOPへ</a>
                 </form>
             </div>
             <div class="col-sm-3"></div>

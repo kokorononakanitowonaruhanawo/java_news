@@ -1,16 +1,13 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,20 +17,20 @@ import javax.servlet.http.HttpSession;
 import logic.GenreLogic;
 import model.GenreModel;
 import model.NewsModel;
+import util.settings.MSSettings;
 import validation.NewsValidation;
 
 /**
- * Servlet implementation class NewsRegisterServlet
+ * Servlet implementation class NewsEditServlet
  */
-@WebServlet("/NewsRegisterServlet")
-@MultipartConfig
-public class NewsRegisterServlet extends HttpServlet {
+@WebServlet("/NewsEditServlet")
+public class NewsEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewsRegisterServlet() {
+    public NewsEditServlet() {
         super();
     }
 
@@ -41,6 +38,8 @@ public class NewsRegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = null;
+		
 		// 全てのジャンルを取得
 		GenreLogic logic = new GenreLogic();
 		List<GenreModel> genreList = new ArrayList<>();
@@ -49,9 +48,23 @@ public class NewsRegisterServlet extends HttpServlet {
 		// SessionScopeに保存
 		HttpSession session = request.getSession();
 		session.setAttribute("genreList", genreList);
+				
+		// 編集するニュースを取得
+		NewsModel model = new NewsModel();
+		model = (NewsModel) session.getAttribute("news");
+		if(model == null) {
+			// エラーメッセージ
+			request.setAttribute("error", MSSettings.MSG_ERROR_OCCURRED);
+			// forward
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+			dispatcher.forward(request, response);
+		}
 		
-		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+		// title
+		request.setAttribute("title", "編集");
+		
+		// forward
+		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/edit.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -76,7 +89,7 @@ public class NewsRegisterServlet extends HttpServlet {
 		// バリデーション
 		NewsValidation validate = new NewsValidation(request);
 		Map<String, String> errors = validate.validation();
-		if(validate.hasErrors()) {
+		if(validate.hasErrors() | genreID == 0) {
 			request.setAttribute("errors", errors);
 			
 			Map<String, String> news = new HashMap<String, String>();
@@ -88,7 +101,7 @@ public class NewsRegisterServlet extends HttpServlet {
 			request.setAttribute("news", news);
 			
 			//フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/edit.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -100,11 +113,6 @@ public class NewsRegisterServlet extends HttpServlet {
 		news.setURL(url);
 		news.setTwitter(twitter);
 		news.setGenreId(genreID);
-		//登録日（本日の日付）
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String strDate = dateFormat.format(date);
-		news.setRegistrationDate(java.sql.Date.valueOf(strDate));
 		// ジャンル
 		GenreLogic logic = new GenreLogic();
 		GenreModel model = new GenreModel();
@@ -117,8 +125,9 @@ public class NewsRegisterServlet extends HttpServlet {
 		session.setAttribute("news", news);
 		
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/registerConfirm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/editConfirm.jsp");
 		dispatcher.forward(request, response);
+	
 	}
 
 }

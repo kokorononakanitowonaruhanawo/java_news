@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.ArrayList, java.util.List,
+					model.NewsModel" %>
+
+<%
+List<NewsModel> list = (List<NewsModel>) session.getAttribute("list");
+//何ページ目を表示するか
+String strNum = request.getParameter("page");
+int num = 0;
+if(strNum != null && !strNum.isEmpty()) {
+	num = Integer.parseInt(strNum);
+}
+
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -45,8 +59,10 @@ a{
 			                        </h5>
 			                    </div>
 			                    <div class="card-footer bg-light">
-			                        <a href="#" class="card-link">${news.getRegistrationDate()}</a>
-			                        <a href="#" class="card-link p-category">${news.getGenreModel().getGenre()}</a>
+			                       <a href="/java_news/SearchServlet?registration=${news.getRegistrationDate()}" 
+			                        	class="card-link">${news.getRegistrationDate()}</a> 
+			                        <a href="/java_news/SearchServlet?genre=${news.getGenreModel().getGenre()}"
+			                        	class="card-link p-category">${news.getGenreModel().getGenre()}</a> 
 			                    </div>
 		                    </div>
 		            	</div>
@@ -57,10 +73,14 @@ a{
     </div>
 
 	<%-- pagination --%>
-	<c:if test="${requestScope.num != null}">
+	<c:if test="${page != null}">
 	    <c:import url="/WEB-INF/jsp/include/pagination.jsp">
-	    	<c:param name="num" value="${requestScope.num}"></c:param>
+	    	<c:param name="offset" value="${requestScope.page}"></c:param>
 	    	<c:param name="block" value="${requestScope.block}"></c:param>
+	    	<c:param name="isEnd" value="${requestScope.isEnd}"></c:param>
+	    	<c:param name="genre" value="${requestScope.genre}"></c:param>
+	    	<c:param name="registration" value="${requestScope.registraion}"></c:param>
+	    	<c:param name="keyword" value="${requestScope.keyword}"></c:param>
 	    </c:import>
     </c:if>
 	

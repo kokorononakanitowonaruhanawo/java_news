@@ -10,22 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import logic.NewsLogic;
-import model.NewsModel;
+import logic.GenreLogic;
+import model.GenreModel;
 import util.settings.DBSettings;
 import util.settings.MSSettings;
 
 /**
- * Servlet implementation class NewsRegisterDoneServlet
+ * Servlet implementation class GenreRegisterDoneServlet
  */
-@WebServlet("/NewsRegisterDoneServlet")
-public class NewsRegisterDoneServlet extends HttpServlet {
+@WebServlet("/GenreRegisterDoneServlet")
+public class GenreRegisterDoneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewsRegisterDoneServlet() {
+    public GenreRegisterDoneServlet() {
         super();
     }
 
@@ -37,20 +37,20 @@ public class NewsRegisterDoneServlet extends HttpServlet {
 		
 		// session情報を取得
 		HttpSession session = request.getSession();
-		NewsModel news = (NewsModel) session.getAttribute("news");
+		GenreModel genre = (GenreModel) session.getAttribute("genre");
 		
 		// 取得できていない場合
-		if(news == null) {
+		if(genre == null) {
 			// エラーメッセージ
 			request.setAttribute("error", MSSettings.MSG_ERROR_OCCURRED);
 			// forward
-			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/genre/register.jsp");
 			dispatcher.forward(request, response);
 		}
-		news.setIsDeleted(0);
+		
 		// DBに登録
-		NewsLogic logic = new NewsLogic();
-		int result = logic.create(news);
+		GenreLogic logic = new GenreLogic();
+		int result = logic.create(genre);
 		
 		// 登録処理に成功
 		if(result == DBSettings.DB_EXECUTION_SUCCESS) {
@@ -59,7 +59,7 @@ public class NewsRegisterDoneServlet extends HttpServlet {
 			request.setAttribute("legend", MSSettings.MSG_TITLE_RESISTER);
 			request.setAttribute("message", MSSettings.MSG_RESISTER_COMPLETE);
 			// sessionを削除
-			session.removeAttribute("news");
+			session.removeAttribute("genre");
 			// forward
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/done.jsp");
 			dispatcher.forward(request, response);
@@ -68,7 +68,7 @@ public class NewsRegisterDoneServlet extends HttpServlet {
 		else {
 			request.setAttribute("error", MSSettings.MSG_ERROR_OCCURRED);
 			// forward
-			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/news/register.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/genre/register.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

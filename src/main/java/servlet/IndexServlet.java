@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import logic.NewsLogic;
 import model.NewsModel;
+import util.settings.OthersSettings;
 
 /**
  * Servlet implementation class IndexServlet
@@ -27,51 +28,49 @@ public class IndexServlet extends HttpServlet {
      */
     public IndexServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int size = util.settings.OthersSettings.DISPLAY_NUMBER;
-		
-		// 全てのニュースを取得
-		NewsLogic logic = new NewsLogic();
-		List<NewsModel> newsList = new ArrayList<>();
-		newsList = logic.find();
-		
-		if(newsList == null) {
-			// フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-			dispatcher.forward(request, response);
-		}
+
+		RequestDispatcher dispatcher = null;
 		
 		// 何ページ目を表示するか
-		String strNum = request.getParameter("page");
-		int num = 0;
-		if(strNum != null) {
-			num = Integer.parseInt(strNum);
+		int offset = 0;
+		
+		// 検索
+		NewsLogic logic = new NewsLogic();
+		List<NewsModel> searchList = new ArrayList<NewsModel>();
+		int limit = OthersSettings.DISPLAY_NUMBER;
+		
+		searchList = logic.find(0, null, null, null, limit, 0);
+		
+		if(searchList == null) {
+			// フォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
 		
-		// 表示するページを取得
-		List<NewsModel> list = new ArrayList<NewsModel>();
-		int start = num * size;
-		int end = Math.min(start + size, newsList.size());
-		list = newsList.subList(start, end);
-		
 		// 全部で何ページあるか
-		int block = (newsList.size() + (size - 1)) / size;
+		int block = logic.count(0, null, null, null) / OthersSettings.DISPLAY_NUMBER;
+		
+		int isEnd = 0;
+		if(block == offset + 1)	{isEnd =1;}
 		
 		// Scopeに保存
 		HttpSession session = request.getSession();
+		session = request.getSession();
 		session.removeAttribute("list");
-		session.setAttribute("list", list);
-		request.setAttribute("page", num + 1);
+		session.setAttribute("list", searchList);
+		request.setAttribute("page", offset + 1);
 		request.setAttribute("block", block);
+		request.setAttribute("isEnd", isEnd);
 		
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -79,7 +78,6 @@ public class IndexServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
