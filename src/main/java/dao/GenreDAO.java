@@ -11,6 +11,10 @@ import database.DBConnection;
 import model.GenreModel;
 import util.settings.DBSettings;
 
+/**
+ * Genre DAO
+ */
+
 public class GenreDAO {
 
 	/**
@@ -60,7 +64,7 @@ public class GenreDAO {
 			Connection connection = db.getConnection();
 			
 			// SQL実行
-			String sql = "SELECT * FROM genre WHERE id=?";
+			String sql = "SELECT * FROM genre WHERE id = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -97,9 +101,12 @@ public class GenreDAO {
 			
 			// SQL文
 			String sql = "INSERT INTO genre ( "
-							+ "genre = ?, "
-							+ "registration_date = ? "
-							+ " )";
+							+ "genre, "
+							+ "registration_date "
+							+ ") VALUES ( "
+							+ "?, "	// genre
+							+ "? "	// registration_date
+							+ ")";
 				
 			// SQLを実行する準備
 			PreparedStatement stmt = connection.prepareStatement(sql);
