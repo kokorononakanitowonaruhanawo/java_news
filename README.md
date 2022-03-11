@@ -38,12 +38,14 @@
 
 * 動画やTwitterの差し込み
 
+
 ## 使用したもの
 
+- macOS 12.1（Windowsでも動作します）
+- Eclipse 2021-12
+- Java 11 / Tomcat 9
+- MySQL 5.7.34（MariaDBでも動作します）
 - JSTL
-
-- MySQL(MAMP)
-
 - BootStrap
 
 ## 今後実装したい機能
